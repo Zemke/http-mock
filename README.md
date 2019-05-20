@@ -13,4 +13,4 @@ If you create a file in `mocks/` named `api_users_1_details.json` it will be ser
 
 ## Appendix
 
-You might also roll your own version of this. Peek into `index.js` it’s kids’ stuff.
+You might also roll your own version of this. Peek into `index.js`—it’s kids’ stuff.
