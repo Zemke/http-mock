@@ -1,0 +1,26 @@
+{
+  "name": "http-mock",
+  "version": "1.0.0",
+  "description": "Serve JSON mocks conveniently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zemke/http-mock.git"
+  },
+  "keywords": [
+    "mock",
+    "json",
+    "http",
+    "protractor",
+    "backend"
+  ],
+  "author": "Zemke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zemke/http-mock/issues"
+  },
+  "homepage": "https://github.com/zemke/http-mock#readme"
+}
