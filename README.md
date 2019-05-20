@@ -5,7 +5,7 @@ Serve JSON mocks conveniently.
 ## Usage
 
 ```js
-require('http-mock')(3333, __dirname + '/mocks');
+require('@zemke/http-mock')(3333, __dirname + '/mocks');
 ```
 
 Starts a server on port `3333` with JSON files to serve located in the current directory under `mocks/`.
