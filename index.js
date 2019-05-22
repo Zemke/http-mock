@@ -4,6 +4,7 @@ const fs = require('fs');
 module.exports = function (port, pathToMocks) {
     http.createServer((req, res) => {
         req.on('error', err => console.error(err.stack));
+        res.setHeader('Access-Control-Allow-Origin', '*');
 
         const file = `${pathToMocks}/${req.url.substr(1).replace(/\//g, '_')}.json`;
         if (req.url === '/favicon.ico') {
