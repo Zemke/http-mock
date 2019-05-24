@@ -8,7 +8,7 @@ Serve JSON mocks conveniently.
 // Start server on port 3333.
 const httpMock = require('@zemke/http-mock')(3333);
 
-// When http://localhost:3333/api/tournamnet is requested
+// When http://localhost:3333/api/tournament is requested
 // respond with contents of the JSON file under the given path.
 httpMock.add('/api/tournament', __dirname + '/mocks/api_tournament.json');
 ```
