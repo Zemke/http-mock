@@ -5,12 +5,18 @@ Serve JSON mocks conveniently.
 ## Usage
 
 ```js
-require('@zemke/http-mock')(3333, __dirname + '/mocks');
+// Start server on port 3333.
+const httpMock = require('@zemke/http-mock')(3333);
+
+// When http://localhost:3333/api/tournamnet is requested
+// respond with contents of the JSON file under the given path.
+httpMock.add('/api/tournament', __dirname + '/mocks/api_tournament.json');
 ```
 
-Starts a server on port `3333` with JSON files to serve located in the current directory under `mocks/`.
-If you create a file in `mocks/` named `api_users_1_details.json` it will be served when `http://localhost:3333/api/users/1/details` is requested.
+## API
 
-## Appendix
+### `add(urlMatcher: string | RegExp, mock: string)`
 
-You might also roll your own version of this. Peek into `index.js`—it’s kids’ stuff.
+`urlMatcher` — May be a string to match the exact path or a regular expression.
+`mock` — A path to a JSON file or inline stringified JSON.
+
