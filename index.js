@@ -20,14 +20,12 @@ module.exports = (port) => {
         const matchingMocks = mocks.filter(m => urlMatchesPattern(req.url, m[0]));
 
         if (matchingMocks.length > 1) {
-            console.warn("More than one pattern matches the URL:");
-            matchingMocks.forEach(matchingMocks, idx => console.warn(`${idx + 1}. ${matchingMocks[0]}`));
-            console.warn("This results in a 400 HTTP Bad Request");
+            console.warn("HTTP400 - More than one pattern matches the URL:");
+            matchingMocks.forEach((matchingMock, idx) => console.warn(` ${idx + 1}. ${matchingMock[0]}`));
             res.statusCode = 400;
             res.end();
         } else if (matchingMocks.length === 0) {
-            console.warn(`No pattern matches URL of ${req.url}`);
-            console.warn("This results in a 404 HTTP Not Found");
+            console.warn(`HTTP404 - No pattern matches URL of ${req.url}`);
             res.statusCode = 404;
             res.end();
         } else {
@@ -39,8 +37,7 @@ module.exports = (port) => {
                 res.end(mock);
             } else {
                 if (!fs.existsSync(mock)) {
-                    console.warn(`${mock} does not exist.`);
-                    console.warn("This results in a 500 HTTP Internal Server Error");
+                    console.warn(`HTTP500 - ${mock} does not exist.`);
                     res.statusCode = 500;
                     res.end();
                 } else {
