@@ -49,7 +49,12 @@ module.exports = (port) => {
     }).listen(port);
 
     return {
-        add: (stringOrRegExpUrlMatcher, jsonOrFilePath) => mocks.push([stringOrRegExpUrlMatcher, jsonOrFilePath]),
+        add: (stringOrRegExpUrlMatcher, jsonOrFilePath) => {
+            const indexOfUrlPattern = mocks.findIndex(mock => mock[0].toString() === stringOrRegExpUrlMatcher.toString());
+            indexOfUrlPattern === -1
+                ? mocks.push([stringOrRegExpUrlMatcher, jsonOrFilePath])
+                : (mocks[indexOfUrlPattern][1] = jsonOrFilePath);
+        },
         clear: () => mocks.splice(0, mocks.length),
     };
 };
