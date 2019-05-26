@@ -32,10 +32,10 @@ module.exports = (port) => {
             res.setHeader('Content-Type', 'application/json');
             const mock = matchingMocks[0][1];
 
-            if (mock.trim().startsWith("{")) {
+            try {
+                res.end(JSON.parse(JSON.stringify(mock)));
                 console.log(`Serving inline mock for ${req.url}`);
-                res.end(mock);
-            } else {
+            } catch (e) {
                 if (!fs.existsSync(mock)) {
                     console.warn(`HTTP500 - ${mock} does not exist.`);
                     res.statusCode = 500;
