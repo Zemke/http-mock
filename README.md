@@ -17,7 +17,12 @@ httpMock.add('/api/tournament', __dirname + '/mocks/api_tournament.json');
 
 ### `add(urlMatcher: string | RegExp, mock: string)`
 
+Add a new mock for the given URL pattern. Performs a replace, if the URL pattern already exists.
+
 `urlMatcher` — May be a string to match the exact path or a regular expression.
 
 `mock` — A path to a JSON file or inline stringified JSON.
 
+### `clean()`
+
+Remove all mocks.
