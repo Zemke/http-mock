@@ -15,7 +15,8 @@
     "json",
     "http",
     "protractor",
-    "backend"
+    "backend",
+    "rest"
   ],
   "author": "Zemke",
   "license": "MIT",
