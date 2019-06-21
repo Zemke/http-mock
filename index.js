@@ -16,6 +16,9 @@ module.exports = (port) => {
     http.createServer((req, res) => {
         req.on('error', err => console.error(err.stack));
         res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.setHeader("Access-Control-Allow-Headers", "*");
 
         const matchingMocks = mocks.filter(m => urlMatchesPattern(req.url, m[0]));
 
