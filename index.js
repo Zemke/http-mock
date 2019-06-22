@@ -41,13 +41,26 @@ module.exports = (port) => {
                 res.end(JSON.parse(JSON.stringify(mock)));
                 console.log(`Serving inline mock for ${req.url}`);
             } catch (e) {
-                if (!fs.existsSync(mock)) {
-                    console.warn(`HTTP500 - ${mock} does not exist.`);
-                    res.statusCode = 500;
-                    res.end();
+                if (typeof mock === "function") {
+                    console.log(`Serving mock from function for ${req.url}`);
+
+                    if (req.method.toUpperCase() === 'POST') {
+                        let body = "";
+                        req
+                            .on('data', chunk => body += chunk)
+                            .on('end', () => res.end(JSON.stringify(mock(req, JSON.parse(body.toString())))));
+                    } else {
+                        res.end(JSON.stringify(mock(req)));
+                    }
                 } else {
-                    console.log(`Serving mock file ${mock} for ${req.url}`);
-                    fs.createReadStream(mock).pipe(res);
+                    if (!fs.existsSync(mock)) {
+                        console.warn(`HTTP500 - ${mock} does not exist.`);
+                        res.statusCode = 500;
+                        res.end();
+                    } else {
+                        console.log(`Serving mock file ${mock} for ${req.url}`);
+                        fs.createReadStream(mock).pipe(res);
+                    }
                 }
             }
         }
