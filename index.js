@@ -20,6 +20,8 @@ module.exports = (port) => {
         res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
         res.setHeader("Access-Control-Allow-Headers", "*");
 
+        if (req.method.toUpperCase() === 'OPTIONS') return res.end();
+
         const matchingMocks = mocks.filter(m => urlMatchesPattern(req.url, m[0]));
 
         if (matchingMocks.length > 1) {
