@@ -37,30 +37,28 @@ module.exports = (port) => {
             res.setHeader('Content-Type', 'application/json');
             const mock = matchingMocks[0][1];
 
-            try {
-                res.end(JSON.parse(JSON.stringify(mock)));
+            if (typeof mock === "object") {
                 console.log(`Serving inline mock for ${req.url}`);
-            } catch (e) {
-                if (typeof mock === "function") {
-                    console.log(`Serving mock from function for ${req.url}`);
+                res.end(JSON.stringify(mock));
+            } else if (typeof mock === "function") {
+                console.log(`Serving mock from function for ${req.url}`);
 
-                    if (req.method.toUpperCase() === 'POST') {
-                        let body = "";
-                        req
-                            .on('data', chunk => body += chunk)
-                            .on('end', () => res.end(JSON.stringify(mock(req, JSON.parse(body.toString())))));
-                    } else {
-                        res.end(JSON.stringify(mock(req)));
-                    }
+                if (req.method.toUpperCase() === 'POST') {
+                    let body = "";
+                    req
+                        .on('data', chunk => body += chunk)
+                        .on('end', () => res.end(JSON.stringify(mock(req, JSON.parse(body.toString())))));
                 } else {
-                    if (!fs.existsSync(mock)) {
-                        console.warn(`HTTP500 - ${mock} does not exist.`);
-                        res.statusCode = 500;
-                        res.end();
-                    } else {
-                        console.log(`Serving mock file ${mock} for ${req.url}`);
-                        fs.createReadStream(mock).pipe(res);
-                    }
+                    res.end(JSON.stringify(mock(req)));
+                }
+            } else {
+                if (!fs.existsSync(mock)) {
+                    console.warn(`HTTP500 - ${mock} does not exist.`);
+                    res.statusCode = 500;
+                    res.end();
+                } else {
+                    console.log(`Serving mock file ${mock} for ${req.url}`);
+                    fs.createReadStream(mock).pipe(res);
                 }
             }
         }
