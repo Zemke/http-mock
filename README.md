@@ -15,13 +15,13 @@ httpMock.add('/api/tournament', __dirname + '/mocks/api_tournament.json');
 
 ## API
 
-### `add(urlMatcher: string | RegExp, mock: string)`
+### `add(urlMatcher: string | RegExp, mock: string | object | Function<http.IncomingMessage, object>)`
 
 Add a new mock for the given URL pattern. Performs a replace, if the URL pattern already exists.
 
 `urlMatcher` — May be a string to match the exact path or a regular expression.
 
-`mock` — A path to a JSON file or inline stringified JSON.
+`mock` — A path to a JSON file or inline JSON or a handler function with params [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage) and the POST payload.
 
 ### `clean()`
 
