@@ -1,4 +1,4 @@
-# `http-mock`
+# `http-mock` [![npm version](https://badge.fury.io/js/%40zemke%2Fhttp-mock.svg)](https://badge.fury.io/js/%40zemke%2Fhttp-mock)
 
 Serve JSON mocks conveniently.
 
