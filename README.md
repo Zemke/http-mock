@@ -36,6 +36,10 @@ Add a new mock for the given URL pattern. Performs a replace, if the URL pattern
 
 Remove all mocks.
 
+### `close(Function<>)`
+
+Close the server with an optional callback method when the closing errors.
+
 ## Examples
 
 ```
