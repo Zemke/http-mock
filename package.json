@@ -1,6 +1,6 @@
 {
   "name": "@zemke/http-mock",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Serve JSON mocks conveniently.",
   "main": "index.js",
   "scripts": {
