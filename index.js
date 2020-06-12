@@ -10,10 +10,10 @@ const urlMatchesPattern = (url, pattern) =>
  * Start the server and get returned methods to add mocks.
  *
  * @param port The port to start the server
- * @returns {{add: (function(*, *): number), clear: (function(): *[])}}
+ * @returns {{add: (function(*, *): number), clear: (function(): *[]), close: (function(): void)}}
  */
 module.exports = (port) => {
-    http.createServer((req, res) => {
+    const server = http.createServer((req, res) => {
         req.on('error', err => console.error(err.stack));
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -66,16 +66,22 @@ module.exports = (port) => {
                 }
             }
         }
-    }).listen(port);
+    });
+
+    server.listen(port);
 
     return {
         add: (stringOrRegExpUrlMatcher, jsonOrFilePath) => {
             const indexOfUrlPattern = mocks.findIndex(mock => mock[0].toString() === stringOrRegExpUrlMatcher.toString());
             indexOfUrlPattern === -1
-                ? mocks.push([stringOrRegExpUrlMatcher, jsonOrFilePath])
-                : (mocks[indexOfUrlPattern][1] = jsonOrFilePath);
+              ? mocks.push([stringOrRegExpUrlMatcher, jsonOrFilePath])
+              : (mocks[indexOfUrlPattern][1] = jsonOrFilePath);
         },
         clear: () => mocks.splice(0, mocks.length),
+        close: cb => {
+            console.log('closing server');
+            server.close(cb || console.error);
+        }
     };
 };
 

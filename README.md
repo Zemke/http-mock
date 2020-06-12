@@ -26,3 +26,9 @@ Add a new mock for the given URL pattern. Performs a replace, if the URL pattern
 ### `clean()`
 
 Remove all mocks.
+
+## Examples
+
+```
+httpMock.add(/\/api\/procedures\/(.+)/, __dirname + '/mocks/$1.json');
+```
